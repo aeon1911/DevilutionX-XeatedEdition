@@ -77,6 +77,30 @@ enum class FloatingNumbers : uint8_t {
 	Vertical = 2,
 };
 
+/** @brief Walking speed presets of the Xeated Edition (number of skipped walk animation frames). */
+enum class WalkSpeed : uint8_t {
+	/** @brief Vanilla walking speed (8 game ticks per tile). */
+	Normal = 0,
+	/** @brief 6 game ticks per tile. */
+	Fast = 1,
+	/** @brief 4 game ticks per tile, same as the Hellfire "run in town". */
+	Run = 2,
+	/** @brief 3 game ticks per tile. */
+	Faster = 3,
+	/** @brief 2 game ticks per tile. */
+	Turbo = 4,
+};
+
+/** @brief Quality of the items dropped by monsters (Xeated Edition cheat). */
+enum class DropQuality : uint8_t {
+	/** @brief Vanilla item generation. */
+	Normal = 0,
+	/** @brief Equipment drops are always magical (same rules as unique monster drops without the unique bonus). */
+	Magic = 1,
+	/** @brief Equipment drops use the unique monster rules (+4 item level and 15% unique chance). */
+	Unique = 2,
+};
+
 enum class OptionEntryType : uint8_t {
 	Boolean,
 	List,
@@ -610,6 +634,35 @@ struct GameplayOptions : OptionCategoryBase {
 	OptionEntryEnum<FloatingNumbers> enableFloatingNumbers;
 };
 
+/** @brief Walk speed and cheat settings of the Xeated Edition. Only applied in single player games. */
+struct XeatedOptions : OptionCategoryBase {
+	XeatedOptions();
+	std::vector<OptionEntryBase *> GetEntries() override;
+
+	/** @brief Walking speed of the hero. */
+	OptionEntryEnum<WalkSpeed> walkSpeed;
+	/** @brief Use the running speed everywhere (town and dungeon), even near monsters. */
+	OptionEntryBoolean alwaysRun;
+	/** @brief The hero doesn't take any damage. */
+	OptionEntryBoolean invincible;
+	/** @brief Spells don't consume mana. */
+	OptionEntryBoolean infiniteMana;
+	/** @brief Every hit of the hero kills the monster. */
+	OptionEntryBoolean oneHitKill;
+	/** @brief Equipment doesn't lose durability. */
+	OptionEntryBoolean noDurabilityLoss;
+	/** @brief Percentage of experience gained. */
+	OptionEntryInt<int> experienceRate;
+	/** @brief Percentage of the amount of gold in dropped gold piles. */
+	OptionEntryInt<int> goldRate;
+	/** @brief Percentage of the monster drop chance. */
+	OptionEntryInt<int> dropRate;
+	/** @brief Quality of items dropped by monsters. */
+	OptionEntryEnum<DropQuality> dropQuality;
+	/** @brief Bonus added to the item level of items dropped by monsters. */
+	OptionEntryInt<int> itemLevelBonus;
+};
+
 struct ControllerOptions : OptionCategoryBase {
 	ControllerOptions();
 	std::vector<OptionEntryBase *> GetEntries() override;
@@ -806,6 +859,7 @@ struct Options {
 	HellfireOptions Hellfire;
 	AudioOptions Audio;
 	GameplayOptions Gameplay;
+	XeatedOptions Xeated;
 	GraphicsOptions Graphics;
 	ControllerOptions Controller;
 	NetworkOptions Network;
@@ -825,6 +879,7 @@ struct Options {
 			&Diablo,
 			&Hellfire,
 			&Gameplay,
+			&Xeated,
 			&Controller,
 			&Network,
 			&Chat,

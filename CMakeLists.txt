@@ -419,9 +419,9 @@ endif()
 
 if(NINTENDO_SWITCH)
   nx_generate_nacp (${BIN_TARGET}.nacp
-    NAME    "DevilutionX"
-    AUTHOR  "Devilution Team"
-    VERSION "${PROJECT_VERSION}"
+    NAME    "DevilutionX Xeated Edition"
+    AUTHOR  "Devilution Team, aeon1911"
+    VERSION "${PROJECT_VERSION}-XE1.0.0"
   )
 
   nx_create_nro(${BIN_TARGET}

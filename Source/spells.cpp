@@ -16,6 +16,7 @@
 #include "gamemenu.h"
 #include "inv.h"
 #include "missiles.h"
+#include "xeated/xeated.hpp"
 
 namespace devilution {
 
@@ -161,6 +162,8 @@ void ConsumeSpell(Player &player, SpellID sn)
 		if (DebugGodMode)
 			break;
 #endif
+		if (xeated::HasInfiniteMana(player))
+			break;
 		int ma = GetManaAmount(player, sn);
 		player._pMana -= ma;
 		player._pManaBase -= ma;
@@ -201,7 +204,7 @@ SpellCheckResult CheckSpell(const Player &player, SpellID sn, SpellType st, bool
 		return SpellCheckResult::Fail_Level0;
 	}
 
-	if (player._pMana < GetManaAmount(player, sn)) {
+	if (player._pMana < GetManaAmount(player, sn) && !xeated::HasInfiniteMana(player)) {
 		return SpellCheckResult::Fail_NoMana;
 	}
 

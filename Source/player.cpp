@@ -47,6 +47,7 @@
 #include "utils/log.hpp"
 #include "utils/str_cat.hpp"
 #include "utils/utf8.hpp"
+#include "xeated/xeated.hpp"
 
 namespace devilution {
 
@@ -165,6 +166,7 @@ void StartWalkAnimation(Player &player, Direction dir, bool pmWillBeCalled)
 	int8_t skippedFrames = -2;
 	if (leveltype == DTYPE_TOWN && sgGameInitInfo.bRunInTown != 0)
 		skippedFrames = 2;
+	skippedFrames = xeated::GetWalkSkippedFrames(player, skippedFrames);
 	if (pmWillBeCalled)
 		skippedFrames += 1;
 	NewPlrAnim(player, player_graphic::Walk, dir, AnimationDistributionFlags::ProcessAnimationPending, skippedFrames);
@@ -436,7 +438,11 @@ bool DoWalk(Player &player, int variant)
 {
 	// Play walking sound effect on certain animation frames
 	if (*sgOptions.Audio.walkingSound && (leveltype != DTYPE_TOWN || sgGameInitInfo.bRunInTown == 0)) {
-		if (player.AnimInfo.currentFrame == 0
+		if (xeated::IsFastWalking(player, -2)) {
+			// Faster walk speeds skip the frames that normally trigger the footsteps, play one step per tile instead
+			if (player.AnimInfo.isLastFrame())
+				PlaySfxLoc(PS_WALK1, player.position.tile);
+		} else if (player.AnimInfo.currentFrame == 0
 		    || player.AnimInfo.currentFrame == 4) {
 			PlaySfxLoc(PS_WALK1, player.position.tile);
 		}
@@ -509,6 +515,9 @@ bool DamageWeapon(Player &player, unsigned damageFrequency)
 		return true;
 	if (WeaponDecay(player, INVLOC_HAND_RIGHT))
 		return true;
+
+	if (xeated::HasNoDurabilityLoss(player))
+		return false;
 
 	if (!FlipCoin(damageFrequency)) {
 		return false;
@@ -594,7 +603,7 @@ bool PlrHitMonst(Player &player, Monster &monster, bool adjacentDamage = false)
 	if (monster.tryLiftGargoyle())
 		return true;
 
-	if (hit >= hper) {
+	if (hit >= hper && !xeated::HasOneHitKill(player)) {
 #ifdef _DEBUG
 		if (!DebugGodMode)
 #endif
@@ -680,6 +689,8 @@ bool PlrHitMonst(Player &player, Monster &monster, bool adjacentDamage = false)
 			dam = monster.hitPoints; /* ensure monster is killed with one hit */
 		}
 #endif
+		if (xeated::HasOneHitKill(player))
+			dam = std::max(dam, monster.hitPoints);
 		ApplyMonsterDamage(DamageType::Physical, monster, dam);
 	}
 
@@ -968,7 +979,7 @@ bool DoRangeAttack(Player &player)
 
 void DamageParryItem(Player &player)
 {
-	if (&player != MyPlayer) {
+	if (&player != MyPlayer || xeated::HasNoDurabilityLoss(player)) {
 		return;
 	}
 
@@ -1012,7 +1023,7 @@ bool DoBlock(Player &player)
 
 void DamageArmor(Player &player)
 {
-	if (&player != MyPlayer) {
+	if (&player != MyPlayer || xeated::HasNoDurabilityLoss(player)) {
 		return;
 	}
 
@@ -2459,6 +2470,8 @@ void AddPlrExperience(Player &player, int lvl, int exp)
 		clampedExp = std::min({ clampedExp, /* level 0-5: */ ExpLvlsTbl[clampedPlayerLevel] / 20U, /* level 6-50: */ 200U * clampedPlayerLevel });
 	}
 
+	clampedExp = xeated::ScaleExperience(player, clampedExp);
+
 	const uint32_t MaxExperience = ExpLvlsTbl[MaxCharacterLevel - 1];
 
 	// Overflow is only possible if a kill grants more than (2^32-1 - MaxExperience) XP in one go, which doesn't happen in normal gameplay. Clamp to experience required to reach max level
@@ -2663,6 +2676,9 @@ void StartPlrHit(Player &player, int dam, bool forcehit)
 		return;
 	}
 
+	if (xeated::IsInvincible(player))
+		return;
+
 	player.Say(HeroSpeech::ArghClang);
 
 	RedrawComponent(PanelDrawComponent::Health);
@@ -2826,6 +2842,8 @@ void StripTopGold(Player &player)
 void ApplyPlrDamage(DamageType damageType, Player &player, int dam, int minHP /*= 0*/, int frac /*= 0*/, DeathReason deathReason /*= DeathReason::MonsterOrTrap*/)
 {
 	int totalDamage = (dam << 6) + frac;
+	if (totalDamage > 0 && xeated::IsInvincible(player))
+		return;
 	if (&player == MyPlayer && player._pHitPoints > 0) {
 		AddFloatingNumber(damageType, player, totalDamage);
 	}

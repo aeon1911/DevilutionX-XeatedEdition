@@ -12,6 +12,10 @@
 #include <psp2/system_param.h>
 #elif defined(__3DS__)
 #include "platform/ctr/locale.hpp"
+#elif defined(__SWITCH__)
+#include <cstring>
+
+#include <switch.h>
 #elif defined(_WIN32) && !defined(NXDK)
 // Suppress definitions of `min` and `max` macros by <windows.h>:
 #define NOMINMAX 1
@@ -32,7 +36,7 @@
 namespace devilution {
 namespace {
 
-#if (defined(_WIN32) && WINVER >= 0x0600 && !defined(NXDK)) || (defined(__APPLE__) && defined(USE_COREFOUNDATION))
+#if (defined(_WIN32) && WINVER >= 0x0600 && !defined(NXDK)) || (defined(__APPLE__) && defined(USE_COREFOUNDATION)) || defined(__SWITCH__)
 std::string IetfToPosix(string_view langCode)
 {
 	/*
@@ -113,6 +117,17 @@ std::vector<std::string> GetLocales()
 	// use default
 #elif defined(__3DS__)
 	locales.push_back(n3ds::GetLocale());
+#elif defined(__SWITCH__)
+	// The system language code is an IETF tag (for example "pt-BR") stored in a 64-bit value
+	if (R_SUCCEEDED(setInitialize())) {
+		u64 languageCode = 0;
+		if (R_SUCCEEDED(setGetSystemLanguage(&languageCode))) {
+			char ietfCode[sizeof(languageCode) + 1] {};
+			std::memcpy(ietfCode, &languageCode, sizeof(languageCode));
+			locales.push_back(IetfToPosix(ietfCode));
+		}
+		setExit();
+	}
 #elif defined(_WIN32) && !defined(NXDK)
 #if WINVER >= 0x0600
 	auto wideCharToUtf8 = [](PWSTR wideString) {

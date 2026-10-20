@@ -26,6 +26,7 @@
 #include "monster.h"
 #include "spells.h"
 #include "utils/str_cat.hpp"
+#include "xeated/xeated.hpp"
 
 namespace devilution {
 
@@ -228,7 +229,7 @@ bool MonsterMHit(int pnum, int monsterId, int mindam, int maxdam, int dist, Miss
 	if (monster.tryLiftGargoyle())
 		return true;
 
-	if (hit >= hper) {
+	if (hit >= hper && !xeated::HasOneHitKill(player)) {
 #ifdef _DEBUG
 		if (!DebugGodMode)
 #endif
@@ -256,6 +257,9 @@ bool MonsterMHit(int pnum, int monsterId, int mindam, int maxdam, int dist, Miss
 		dam <<= 6;
 	if (resist)
 		dam >>= 2;
+
+	if (xeated::HasOneHitKill(player))
+		dam = std::max(dam, monster.hitPoints);
 
 	if (&player == MyPlayer)
 		ApplyMonsterDamage(damageType, monster, dam);

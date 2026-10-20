@@ -1,4 +1,8 @@
-# Nintendo Switch Port of DevilutionX (Diablo)
+# Nintendo Switch Port of DevilutionX (Diablo) - Xeated Edition
+
+This build adds a walk speed setting (up to 4x), an "Always Run" option and an in-game cheat menu
+(Start + Select -> Cheats). Cheats and walk speed only apply to single player games.
+See https://github.com/aeon1911/DevilutionX-XeatedEdition for details.
 
 # How To Install:
  - Put `devilutionx.nro` and `devilutionx.mpq` in into `/switch/devilutionx`
@@ -21,7 +25,7 @@
 - ZL: character sheet (alt: Start + L1 or ←)
 - ZR: inventory (alt: Start + L2 or →)
 - Left analog click: toggle automap (alt: Start + ↓)
-- Start + Select: game menu (alt: Start + ↑)
+- Start + Select: game menu (alt: Start + ↑), then "Cheats" for the Xeated Edition cheat menu
 - Select + A/B/X/Y: Spell hotkeys
 - Right analog: move automap or simulate mouse
 - Right analog click or Select + L: left mouse click

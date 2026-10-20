@@ -41,6 +41,7 @@ set(tests
   timedemo_test
   utf8_test
   writehero_test
+  xeated_test
 )
 
 include(Fixtures.cmake)

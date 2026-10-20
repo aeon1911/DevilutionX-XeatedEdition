@@ -1,0 +1,40 @@
+---
+name: Xeated Tests
+
+on:  # yamllint disable-line rule:truthy
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '*.md'
+      - 'docs/**'
+  pull_request:
+    types: [opened, synchronize]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y cmake curl g++ git libgtest-dev libgmock-dev libfmt-dev libsdl2-dev libsodium-dev libpng-dev libbz2-dev wget
+
+      - name: Build tests
+        run: |
+          cmake -S. -Bbuild -DBUILD_TESTING=ON -DDISCORD_INTEGRATION=OFF
+          wget -nc https://github.com/diasurgical/devilutionx-assets/releases/download/v2/spawn.mpq -P build
+          cmake --build build -j $(nproc)
+
+      - name: Run tests
+        run: cd build && ctest --output-on-failure
+...

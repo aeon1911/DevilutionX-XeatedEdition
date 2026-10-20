@@ -12467,3 +12467,263 @@ msgstr ","
 
 #~ msgid "Right click to read"
 #~ msgstr "Clique direito para ler"
+
+# Xeated Edition
+
+msgid "Xeated Edition"
+msgstr "Xeated Edition"
+
+msgid "Walk Speed and Cheat Settings (single player only)"
+msgstr "Velocidade e cheats (somente um jogador)"
+
+msgid "Walk Speed"
+msgstr "Velocidade de andar"
+
+msgid "How fast the hero walks. Only applies to single player games."
+msgstr "Velocidade com que o herói anda. Vale só para partidas de um jogador."
+
+msgid "Fast (1.3x)"
+msgstr "Rápido (1,3x)"
+
+msgid "Run (2x)"
+msgstr "Corrida (2x)"
+
+msgid "Faster (2.7x)"
+msgstr "Muito rápido (2,7x)"
+
+msgid "Turbo (4x)"
+msgstr "Turbo (4x)"
+
+msgid "Always Run"
+msgstr "Correr sempre"
+
+msgid "Run everywhere, in town and in the dungeon, even when monsters are nearby. Only applies to single player games."
+msgstr "Corre em todo lugar, na cidade e na masmorra, mesmo com monstros por perto. Vale só para partidas de um jogador."
+
+msgid "Invincible"
+msgstr "Invencível"
+
+msgid "Cheat: the hero doesn't take damage."
+msgstr "Cheat: o herói não sofre dano."
+
+msgid "Infinite Mana"
+msgstr "Mana infinita"
+
+msgid "Cheat: spells don't consume mana."
+msgstr "Cheat: as magias não gastam mana."
+
+msgid "One Hit Kill"
+msgstr "Matar com um golpe"
+
+msgid "Cheat: every attack of the hero hits and kills the monster."
+msgstr "Cheat: todo ataque do herói acerta e mata o monstro."
+
+msgid "No Durability Loss"
+msgstr "Sem desgaste"
+
+msgid "Cheat: weapons and armor never lose durability."
+msgstr "Cheat: armas e armaduras nunca perdem durabilidade."
+
+msgid "Experience Gain %"
+msgstr "Ganho de XP %"
+
+msgid "Cheat: percentage of experience gained from monsters."
+msgstr "Cheat: porcentagem da experiência ganha com monstros."
+
+msgid "Gold Drop %"
+msgstr "Ouro dropado %"
+
+msgid "Cheat: percentage of gold in each gold pile (a pile holds at most 5000)."
+msgstr "Cheat: porcentagem de ouro em cada pilha (uma pilha guarda no máximo 5000)."
+
+msgid "Drop Chance %"
+msgstr "Chance de drop %"
+
+msgid "Cheat: percentage of the chance of monsters dropping items. Values above 100% can drop several items."
+msgstr "Cheat: porcentagem da chance de monstros soltarem itens. Acima de 100% podem cair vários itens."
+
+msgid "Drop Quality"
+msgstr "Raridade dos drops"
+
+msgid "Cheat: rarity of the equipment dropped by monsters."
+msgstr "Cheat: raridade dos equipamentos que os monstros soltam."
+
+msgid "Magic or better"
+msgstr "Mágico ou melhor"
+
+msgid "Frequent uniques"
+msgstr "Únicos frequentes"
+
+msgid "Item Level Bonus"
+msgstr "Bônus de nível do item"
+
+msgid "Cheat: added to the level of items dropped by monsters, giving better affixes."
+msgstr "Cheat: somado ao nível dos itens que os monstros soltam, gerando atributos melhores."
+
+msgid "Cheats"
+msgstr "Cheats"
+
+msgid "Xeated Edition Cheats"
+msgstr "Cheats - Xeated Edition"
+
+msgid "Movement"
+msgstr "Movimento"
+
+msgid "Spells"
+msgstr "Magias"
+
+msgid "Gold, Experience and Drops"
+msgstr "Ouro, experiência e drops"
+
+msgid "Items and World"
+msgstr "Itens e mundo"
+
+msgid "Restore Life and Mana"
+msgstr "Restaurar vida e mana"
+
+msgid "Fills the life and mana globes."
+msgstr "Enche os globos de vida e mana."
+
+msgid "Gains one character level (with its stat points)."
+msgstr "Ganha um nível de personagem (com os pontos de atributo)."
+
+msgid "Level Up x10"
+msgstr "Subir 10 níveis"
+
+msgid "Gains ten character levels (with their stat points)."
+msgstr "Ganha dez níveis de personagem (com os pontos de atributo)."
+
+msgid "Add 5 Stat Points"
+msgstr "+5 pontos de atributo"
+
+msgid "Distribute them with the + buttons of the character panel."
+msgstr "Distribua com os botões + do painel do personagem."
+
+msgid "Maximize Attributes"
+msgstr "Atributos no máximo"
+
+msgid "Strength, magic, dexterity and vitality go to the class maximum."
+msgstr "Força, magia, destreza e vitalidade vão ao máximo da classe."
+
+msgid "Learn All Spells"
+msgstr "Aprender todas as magias"
+
+msgid "Learns every spell available in this game at level 1 or more."
+msgstr "Aprende todas as magias disponíveis neste jogo, no nível 1 ou mais."
+
+msgid "All Spells +1 Level"
+msgstr "Todas as magias +1 nível"
+
+msgid "Raises every known spell by one level (maximum 15)."
+msgstr "Sobe um nível de cada magia conhecida (máximo 15)."
+
+msgid "All Spells to Level 15"
+msgstr "Todas as magias no nível 15"
+
+msgid "Raises every known spell to the maximum level."
+msgstr "Leva cada magia conhecida ao nível máximo."
+
+msgid "Add 10000 Gold"
+msgstr "+10.000 de ouro"
+
+msgid "Add 100000 Gold"
+msgstr "+100.000 de ouro"
+
+msgid "Gold goes to the inventory, what doesn't fit goes to the stash."
+msgstr "O ouro vai para o inventário; o que não couber vai para o baú."
+
+msgid "Identify All Items"
+msgstr "Identificar todos os itens"
+
+msgid "Identifies the equipped, inventory and belt items."
+msgstr "Identifica os itens equipados, do inventário e do cinto."
+
+msgid "Repair All Items"
+msgstr "Reparar todos os itens"
+
+msgid "Restores the durability of the equipped, inventory and belt items."
+msgstr "Restaura a durabilidade dos itens equipados, do inventário e do cinto."
+
+msgid "Reveal Map"
+msgstr "Revelar mapa"
+
+msgid "Reveals the automap of the current dungeon level."
+msgstr "Revela o automapa do nível atual da masmorra."
+
+msgid "Warp Destination"
+msgstr "Destino da viagem"
+
+msgid "Dungeon level used by \"Warp to Level\"."
+msgstr "Nível da masmorra usado por \"Viajar para o nível\"."
+
+msgid "Warp to Level"
+msgstr "Viajar para o nível"
+
+msgid "Travels directly to the selected dungeon level."
+msgstr "Viaja direto para o nível escolhido da masmorra."
+
+msgid "Left/Right: change value. A: confirm. B: back."
+msgstr "Esquerda/Direita: alterar. A: confirmar. B: voltar."
+
+msgid "Cheats are only available in single player games."
+msgstr "Os cheats só funcionam em partidas de um jogador."
+
+msgid "The dead can't be healed."
+msgstr "Os mortos não podem ser curados."
+
+msgid "Life and mana restored."
+msgstr "Vida e mana restauradas."
+
+msgid "Already at the maximum level."
+msgstr "Já está no nível máximo."
+
+msgid "Level {:d} reached."
+msgstr "Nível {:d} alcançado."
+
+msgid "{:d} stat points to distribute in the character panel."
+msgstr "{:d} pontos de atributo para distribuir no painel do personagem."
+
+msgid "All attributes at their maximum."
+msgstr "Todos os atributos no máximo."
+
+msgid "{:d} new spells learned."
+msgstr "{:d} magias novas aprendidas."
+
+msgid "No known spell can be raised. Learn spells first."
+msgstr "Nenhuma magia conhecida pode subir. Aprenda magias primeiro."
+
+msgid "{:d} spells raised."
+msgstr "{:d} magias melhoradas."
+
+msgid "{:d} gold added ({:d} went to the stash)."
+msgstr "{:d} de ouro adicionado ({:d} foi para o baú)."
+
+msgid "{:d} gold added to the inventory."
+msgstr "{:d} de ouro adicionado ao inventário."
+
+msgid "The town is already known."
+msgstr "A cidade já é conhecida."
+
+msgid "Map revealed. Open the automap to see it."
+msgstr "Mapa revelado. Abra o automapa para ver."
+
+msgid "{:d} items identified."
+msgstr "{:d} itens identificados."
+
+msgid "{:d} items repaired."
+msgstr "{:d} itens reparados."
+
+msgid "This level doesn't exist in this game."
+msgstr "Este nível não existe neste jogo."
+
+msgid "The dead can't travel."
+msgstr "Os mortos não podem viajar."
+
+msgid "You are already on this level."
+msgstr "Você já está neste nível."
+
+msgid "Traveling to level {:d}..."
+msgstr "Viajando para o nível {:d}..."
+
+msgid "Hero and Attributes"
+msgstr "Herói e atributos"

@@ -1,86 +1,117 @@
-<p align="center">
-<img width="554" src="https://user-images.githubusercontent.com/204594/113575181-c946a400-961d-11eb-8347-a8829fa3830c.png">
-</p>
+# DevilutionX – Xeated Edition
 
----
+Fork do [DevilutionX](https://github.com/diasurgical/devilutionX) **1.5.5** (Diablo e Hellfire) feito para o
+**Nintendo Switch desbloqueado** (homebrew `.nro`). Acrescenta velocidade de andar ajustável, corrida
+liberada o tempo todo e um menu de cheats completo dentro do jogo.
 
-[![Discord Channel](https://img.shields.io/discord/518540764754608128?color=%237289DA&logo=discord&logoColor=%23FFFFFF)](https://discord.gg/devilutionx)
-[![Downloads](https://img.shields.io/github/downloads/diasurgical/devilutionX/total.svg)](https://github.com/diasurgical/devilutionX/releases/latest)
-[![Codecov](https://codecov.io/gh/diasurgical/devilutionX/branch/master/graph/badge.svg)](https://codecov.io/gh/diasurgical/devilutionX)
+No Diablo original só dá para correr na cidade (e só no Hellfire). Na masmorra o herói anda devagar o
+tempo todo, mesmo com o mapa vazio. Aqui você escolhe.
 
-<p align="center">
-<img width="838" src="https://user-images.githubusercontent.com/204594/113578478-26912400-9623-11eb-9ff6-9bd9717462b6.png">
-</p>
+![Menu de cheats](docs/xeated/menu-cheats.jpg)
 
-<sub>*(The health-bar and XP-bar are off by default, but can be enabled in the [game settings](https://github.com/diasurgical/devilutionX/wiki/DevilutionX-diablo.ini-configuration-guide). Widescreen can also be disabled if preferred)*</sub>
+## O que esta edição adiciona
 
-# What is DevilutionX
+### Movimento
 
-DevilutionX is a port of Diablo and Hellfire that strives to make it simple to run the game while providing engine improvements, bugfixes, and some optional quality of life features.
+| Opção | Valores | Efeito |
+| --- | --- | --- |
+| Velocidade de andar | Normal, Rápido (1,3x), Corrida (2x), Muito rápido (2,7x), Turbo (4x) | Ticks de jogo por tile: 8, 6, 4, 3 e 2 |
+| Correr sempre | Ligado/Desligado | Usa no mínimo a velocidade de corrida (2x) na cidade e na masmorra, mesmo com monstros por perto |
 
-Check out the [manual](https://github.com/diasurgical/devilutionX/wiki) for what features are available and how best to take advantage of them.
+A simulação continua a 20 ticks por segundo, igual ao original. A velocidade maior só pula quadros da
+animação de andar, do mesmo jeito que a corrida da cidade do Hellfire. O desenho continua interpolado na
+taxa da tela, então o jogo segue a 60 fps.
 
-For a full list of changes see our [changelog](docs/CHANGELOG.md).
+### Cheats
 
-# How to Install
+Ficam em **Menu do jogo → Cheats** (Start + Select no controle) e também em
+**Configurações → Xeated Edition** no menu principal. Os valores ficam salvos no `diablo.ini`.
 
-Note: You'll need access to the data from the original game. If you don't have an original CD then you can [buy Diablo from GoG.com](https://www.gog.com/game/diablo). Alternately you can use `spawn.mpq` from the [shareware](https://github.com/diasurgical/devilutionx-assets/releases/download/v2/spawn.mpq) [[2]](http://ftp.blizzard.com/pub/demos/diablosw.exe) version, in place of `DIABDAT.MPQ`, to play the shareware portion of the game.
+| Grupo | Item | Tipo |
+| --- | --- | --- |
+| Herói e atributos | Invencível | liga/desliga: não sofre dano nem fica atordoado |
+| | Mana infinita | liga/desliga: magias não gastam mana (e podem ser lançadas mesmo custando mais que a mana máxima) |
+| | Matar com um golpe | liga/desliga: todo ataque (corpo a corpo, flecha ou magia) acerta e mata |
+| | Sem desgaste | liga/desliga: armas, escudos e armaduras não perdem durabilidade |
+| | Restaurar vida e mana | ação |
+| | Subir 1 nível / Subir 10 níveis | ação (com os pontos de atributo do nível) |
+| | +5 pontos de atributo | ação (distribua no painel do personagem) |
+| | Atributos no máximo | ação |
+| Magias | Aprender todas as magias | ação (todas as disponíveis no jogo atual) |
+| | Todas as magias +1 nível / no nível 15 | ação |
+| Ouro, experiência e drops | Ganho de XP % | 100, 150, 200, 300, 500, 1000, 2000 |
+| | Ouro dropado % | 100, 200, 300, 500, 1000 (cada pilha guarda no máximo 5000) |
+| | Chance de drop % | 100, 150, 200, 300, 500, 1000 (acima de 100% podem cair vários itens por monstro) |
+| | Raridade dos drops | Normal, Mágico ou melhor, Únicos frequentes |
+| | Bônus de nível do item | +0, +5, +10, +15, +20, +30 (atributos mágicos melhores) |
+| | +10.000 / +100.000 de ouro | ação (o que não cabe no inventário vai para o baú) |
+| Itens e mundo | Identificar todos os itens | ação (equipados, inventário e cinto) |
+| | Reparar todos os itens | ação |
+| | Revelar mapa | ação (automapa do nível atual) |
+| | Viajar para o nível | ação (1 a 16 no Diablo, 1 a 24 no Hellfire, 1 a 2 no shareware) |
 
-Download the latest [DevilutionX release](https://github.com/diasurgical/devilutionX/releases/latest) and extract the contents to a location of your choosing or [build from source](#building-from-source).
+**Tudo isso só vale em partidas de um jogador.** No multijogador o jogo se comporta exatamente como o
+DevilutionX 1.5.5 oficial (mesma versão de protocolo, dá para jogar com quem usa o oficial). Os cheats
+também ficam desligados durante a gravação ou reprodução de demos.
 
-- Copy `DIABDAT.MPQ` from the CD or GOG-installation (or [extract it from the GoG installer](https://github.com/diasurgical/devilutionX/wiki/Extracting-the-.MPQs-from-the-GoG-installer)) to the DevilutionX folder.
-- To run the Diablo: Hellfire expansion you will need to also copy `hellfire.mpq`, `hfmonk.mpq`, `hfmusic.mpq`, `hfvoice.mpq`.
+Os drops "trapaceados" usam só valores que o jogo já guarda no item (nível do item e as marcas de
+qualidade), então os itens são recriados iguais ao carregar o save ou o herói.
 
-For more detailed instructions: [Installation Instructions](./docs/installing.md).
+### Outras mudanças
 
-# Contributing
+- O idioma do jogo agora segue o idioma do sistema do Switch (antes ficava sempre em inglês). Todo o
+  texto novo tem tradução para português do Brasil.
+- O menu do jogo ajusta o espaçamento dos itens quando não cabem acima do painel (necessário por causa do
+  item novo "Cheats").
+- O nome do homebrew no menu do Switch é "DevilutionX Xeated Edition", e a versão aparece no menu principal
+  como `DevilutionX v1.5.5 Xeated Edition 1.0.0`.
 
-We are always looking for more people to help with [coding](docs/CONTRIBUTING.md), [documentation](https://github.com/diasurgical/devilutionX/wiki), testing the [latest builds](https://app.circleci.com/pipelines/github/diasurgical/devilutionX?branch=master), spreading the word, or simply just hanging out on [the chat](https://discord.gg/devilutionx).
+## Instalação no Switch
 
-# Mods
+1. Copie `devilutionx.nro` para `/switch/devilutionx/` no cartão SD. Pode substituir o `.nro` oficial: a
+   pasta, os saves e o `diablo.ini` são os mesmos.
+2. Copie `DIABDAT.MPQ` do CD ou da instalação do GOG para a mesma pasta. Sem ele, use o `spawn.mpq` do
+   [shareware](https://github.com/diasurgical/devilutionx-assets/releases/download/v2/spawn.mpq).
+3. Para o Hellfire: `hellfire.mpq`, `hfmonk.mpq`, `hfmusic.mpq` e `hfvoice.mpq`.
+4. Abra pelo Homebrew Menu segurando **R** sobre um jogo instalado (modo título, não pelo álbum).
 
-We hope to provide a good starting point for mods, in addition to the full Devilution source code we also provide modding tools. Also, check out the list of known [mods based on DevilutionX](https://github.com/diasurgical/devilutionX/wiki/Mods-and-related-projects).
+Controles: os mesmos do DevilutionX (veja `Packaging/switch/README.txt`). Para os cheats:
+**Start + Select** abre o menu do jogo, depois **Cheats**. No menu de cheats: direcional cima/baixo escolhe,
+esquerda/direita muda o valor, **A** confirma ou executa a ação, **B** volta.
 
-# Test builds
+## Compilando
 
-If you want to help test the latest development stage of the next version (make sure to backup your files as these may contain bugs), you can fetch the test build artifact from one of the build server:
+O `.nro` é gerado pelo workflow `Xeated Switch` do GitHub Actions (artefato `devilutionx-xeated.nro`; nas
+tags `xe-*` ele também é anexado à release). Para compilar localmente com Docker:
 
-*Note: You must be logged into GitHub to download the attachments!*
+```sh
+docker run --rm -v "$PWD":/src -w /src devkitpro/devkita64:latest bash -c '
+  apt-get update && apt-get install -y --no-install-recommends gettext &&
+  cmake -S . -B build-switch -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_TOOLCHAIN_FILE=/opt/devkitpro/cmake/Switch.cmake &&
+  cmake --build build-switch -j"$(nproc)"'
+# resultado: build-switch/devilutionx.nro
+```
 
-[![Linux x86_64](https://github.com/diasurgical/devilutionX/actions/workflows/Linux_x86_64.yml/badge.svg)](https://github.com/diasurgical/devilutionX/actions/workflows/Linux_x86_64.yml?query=branch%3Amaster)
-[![Linux aarch64](https://github.com/diasurgical/devilutionX/actions/workflows/Linux_aarch64.yml/badge.svg)](https://github.com/diasurgical/devilutionX/actions/workflows/Linux_aarch64.yml?query=branch%3Amaster)
-[![Linux x86](https://github.com/diasurgical/devilutionX/actions/workflows/Linux_x86.yml/badge.svg)](https://github.com/diasurgical/devilutionX/actions/workflows/Linux_x86.yml?query=branch%3Amaster)
-[![Linux x86_64 SDL1](https://github.com/diasurgical/devilutionX/actions/workflows/Linux_x86_64_SDL1.yml/badge.svg)](https://github.com/diasurgical/devilutionX/actions/workflows/Linux_x86_64_SDL1.yml?query=branch%3Amaster)
-[![macOS x86_64](https://github.com/diasurgical/devilutionX/actions/workflows/macOS_x86_64.yml/badge.svg)](https://github.com/diasurgical/devilutionX/actions/workflows/macOS_x86_64.yml?query=branch%3Amaster)
-[![Windows x64](https://github.com/diasurgical/devilutionX/actions/workflows/Windows_MSVC_x64.yml/badge.svg)](https://github.com/diasurgical/devilutionX/actions/workflows/Windows_MSVC_x64.yml?query=branch%3Amaster)
-[![Windows MinGW x64](https://github.com/diasurgical/devilutionX/actions/workflows/Windows_MinGW_x64.yml/badge.svg)](https://github.com/diasurgical/devilutionX/actions/workflows/Windows_MinGW_x64.yml?query=branch%3Amaster)
-[![Windows MinGW x86](https://github.com/diasurgical/devilutionX/actions/workflows/Windows_MinGW_x86.yml/badge.svg)](https://github.com/diasurgical/devilutionX/actions/workflows/Windows_MinGW_x86.yml?query=branch%3Amaster)
-[![Android](https://github.com/diasurgical/devilutionX/actions/workflows/Android.yml/badge.svg)](https://github.com/diasurgical/devilutionX/actions/workflows/Android.yml?query=branch%3Amaster)
-[![iOS](https://github.com/diasurgical/devilutionX/actions/workflows/iOS.yml/badge.svg)](https://github.com/diasurgical/devilutionX/actions/workflows/iOS.yml?query=branch%3Amaster)
-[![PS4](https://github.com/diasurgical/devilutionX/actions/workflows/PS4.yml/badge.svg)](https://github.com/diasurgical/devilutionX/actions/workflows/PS4.yml?query=branch%3Amaster)
-[![Original Xbox](https://github.com/diasurgical/devilutionX/actions/workflows/xbox_nxdk.yml/badge.svg)](https://github.com/diasurgical/devilutionX/actions/workflows/xbox_nxdk.yml?query=branch%3Amaster)
-[![Xbox One/Series](https://github.com/diasurgical/devilutionX/actions/workflows/xbox_one.yml/badge.svg)](https://github.com/diasurgical/devilutionX/actions/workflows/xbox_one.yml?query=branch%3Amaster)
+Testes (Linux): `cmake -S . -B build -DBUILD_TESTING=ON && cmake --build build -j && (cd build && ctest)`.
+Os testes da edição ficam em `test/xeated_test.cpp`.
 
-Switch, Vita, 3DS, Amiga: [![CircleCI](https://circleci.com/gh/diasurgical/devilutionX.svg?style=shield)](https://app.circleci.com/pipelines/github/diasurgical/devilutionX?branch=master)
+## Como foi testado
 
-# Building from Source
+- Os 213 testes do DevilutionX 1.5.5, mais 15 testes novos da edição: 228/228 passando.
+- `.nro` rodando no emulador Ryujinx 1.3.3 com o `spawn.mpq`: menu de cheats, todos os valores e ações,
+  velocidade medida pelo deslocamento da tela (Corrida = 2x, Turbo = 4x, Correr sempre = 2x), invencível,
+  matar com um golpe, XP 500%, drops mágicos, identificar e reparar, revelar mapa, viagem para o nível,
+  mana infinita lançando magia mais cara que a mana máxima, salvar e carregar com os itens gerados, idioma
+  pt-BR automático e menus a ~60 fps.
+- Ainda não foi testado num Switch de verdade nem com o `DIABDAT.MPQ` completo ou o Hellfire.
 
-Want to compile the program by yourself? Great! Simply follow the [build instructions](./docs/building.md).
+![Configurações](docs/xeated/configuracoes.jpg)
 
-# Credits
+## Créditos e licença
 
-- The original Devilution project [Devilution](https://github.com/diasurgical/devilution#credits)
-- [Everyone](https://github.com/diasurgical/devilutionX/graphs/contributors) who worked on Devilution/DevilutionX
-- [Nikolay Popov](https://www.instagram.com/nikolaypopovz/) for UI and graphics
-- [WiAParker](https://wiaparker.pl/projekty/diablo-hellfire/) for the Polish voice pack
-- And thanks to all who support the project, report bugs, and help spread the word ❤️
+Todo o mérito do motor é do [time do DevilutionX](https://github.com/diasurgical/devilutionX/graphs/contributors).
+O README original está em [docs/README-upstream.md](docs/README-upstream.md).
 
-# Legal
-
-DevilutionX is made publicly available and released under the Sustainable Use License (see [LICENSE](LICENSE.md))
-
-The source code in this repository is for non-commercial use only. If you use the source code you may not charge others for access to it or any derivative work thereof.
-
-Diablo® - Copyright © 1996 Blizzard Entertainment, Inc. All rights reserved. Diablo and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries.
-
-DevilutionX and any of its maintainers are in no way associated with or endorsed by Blizzard Entertainment®.
+DevilutionX é distribuído sob a licença Sustainable Use (veja `LICENSE.md`): uso não comercial. Esta
+edição herda a mesma licença. Diablo® e Hellfire® são marcas da Blizzard Entertainment; este projeto não
+tem ligação com a Blizzard e não distribui dados do jogo.

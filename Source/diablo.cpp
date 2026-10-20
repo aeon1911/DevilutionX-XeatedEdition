@@ -85,6 +85,7 @@
 #include "utils/stdcompat/string_view.hpp"
 #include "utils/str_cat.hpp"
 #include "utils/utf8.hpp"
+#include "xeated/xeated.hpp"
 
 #ifndef USE_SDL1
 #include "controls/touch/gamepad.h"
@@ -1115,7 +1116,7 @@ void DiabloInitScreen()
 
 void SetApplicationVersions()
 {
-	*BufCopy(gszProductName, PROJECT_NAME, " v", PROJECT_VERSION) = '\0';
+	*BufCopy(gszProductName, PROJECT_NAME, " v", PROJECT_VERSION, " Xeated Edition ", xeated::XeatedVersion) = '\0';
 	*BufCopy(gszVersionNumber, "version ", PROJECT_VERSION) = '\0';
 }
 
@@ -1426,6 +1427,8 @@ void GameLogic()
 		ProcessMissiles();
 	}
 	gGameLogicStep = GameLogicStep::None;
+
+	xeated::ProcessGameTick();
 
 #ifdef _DEBUG
 	if (DebugScrollViewEnabled && (SDL_GetModState() & KMOD_SHIFT) != 0) {

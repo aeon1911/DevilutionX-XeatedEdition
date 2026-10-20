@@ -18,6 +18,7 @@
 #include "pfile.h"
 #include "qol/floatingnumbers.h"
 #include "utils/language.h"
+#include "xeated/cheatmenu.hpp"
 
 namespace devilution {
 namespace {
@@ -31,6 +32,7 @@ void GamemenuMusicVolume(bool bActivate);
 void GamemenuSoundVolume(bool bActivate);
 void GamemenuGamma(bool bActivate);
 void GamemenuSpeed(bool bActivate);
+void GamemenuXeated(bool bActivate);
 
 /** Contains the game menu items of the single player menu. */
 TMenuItem sgSingleMenu[] = {
@@ -38,6 +40,7 @@ TMenuItem sgSingleMenu[] = {
 	// dwFlags,      pszStr,          fnMenu
 	{ GMENU_ENABLED, N_("Save Game"), &gamemenu_save_game },
 	{ GMENU_ENABLED, N_("Options"),   &GamemenuOptions    },
+	{ GMENU_ENABLED, N_("Cheats"),    &GamemenuXeated     },
 	{ GMENU_ENABLED, N_("New Game"),  &GamemenuNewGame    },
 	{ GMENU_ENABLED, N_("Load Game"), &gamemenu_load_game },
 	{ GMENU_ENABLED, N_("Quit Game"), &gamemenu_quit_game },
@@ -79,7 +82,7 @@ const char *const SoundToggleNames[] = {
 
 void GamemenuUpdateSingle()
 {
-	sgSingleMenu[3].setEnabled(gbValidSaveFile);
+	sgSingleMenu[4].setEnabled(gbValidSaveFile);
 
 	bool enable = MyPlayer->_pmode != PM_DEATH && !MyPlayerIsDead;
 
@@ -111,6 +114,11 @@ void GamemenuNewGame(bool /*bActivate*/)
 	CornerStone.activated = false;
 	gbRunGame = false;
 	gamemenu_off();
+}
+
+void GamemenuXeated(bool /*bActivate*/)
+{
+	xeated::OpenCheatMenu();
 }
 
 void GamemenuRestartTown(bool /*bActivate*/)

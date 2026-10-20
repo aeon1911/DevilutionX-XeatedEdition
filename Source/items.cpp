@@ -50,6 +50,7 @@
 #include "utils/str_case.hpp"
 #include "utils/str_cat.hpp"
 #include "utils/utf8.hpp"
+#include "xeated/xeated.hpp"
 
 namespace devilution {
 
@@ -3214,7 +3215,7 @@ void GetItemAttrs(Item &item, _item_indexes itemData, int lvl)
 	if (leveltype == DTYPE_HELL)
 		rndv += rndv / 8;
 
-	item._ivalue = std::min(rndv, GOLD_MAX_LIMIT);
+	item._ivalue = xeated::ScaleGoldPile(std::min(rndv, GOLD_MAX_LIMIT));
 	SetPlrHandGoldCurs(item);
 }
 
@@ -3263,10 +3264,59 @@ Item *SpawnUnique(_unique_items uid, Point position, std::optional<int> level /*
 	return &item;
 }
 
+namespace {
+
+void SpawnMonsterDrop(Monster &monster, Point position, _item_indexes idx, bool onlygood, bool sendmsg, bool spawn, bool applyCheats = true)
+{
+	if (idx == IDI_NONE)
+		return;
+
+	if (ActiveItemCount >= MAXITEMS)
+		return;
+
+	int ii = AllocateItem();
+	auto &item = Items[ii];
+	GetSuperItemSpace(position, ii);
+	int uper = monster.isUnique() ? 15 : 1;
+
+	int8_t mLevel = monster.data().level;
+	if (!gbIsHellfire && monster.type().type == MT_DIABLO)
+		mLevel -= 15;
+
+	// Xeated Edition drop cheats. They only change values stored in the item creation info, so
+	// the item can still be recreated from its seed.
+	if (applyCheats) {
+		switch (xeated::GetDropQuality()) {
+		case DropQuality::Unique:
+			uper = 15;
+			onlygood = true;
+			break;
+		case DropQuality::Magic:
+			onlygood = true;
+			break;
+		case DropQuality::Normal:
+			break;
+		}
+		const int levelBonus = xeated::GetItemLevelBonus();
+		if (levelBonus > 0)
+			mLevel = static_cast<int8_t>(std::min(mLevel + levelBonus, 60));
+	}
+
+	SetupAllItems(*MyPlayer, item, idx, AdvanceRndSeed(), mLevel, uper, onlygood, false, false);
+
+	if (sendmsg)
+		NetSendCmdPItem(false, CMD_DROPITEM, item.position, item);
+	if (spawn)
+		NetSendCmdPItem(false, CMD_SPAWNITEM, item.position, item);
+}
+
+} // namespace
+
 void SpawnItem(Monster &monster, Point position, bool sendmsg, bool spawn /*= false*/)
 {
 	_item_indexes idx;
 	bool onlygood = true;
+	bool uniqueDrop = false;
 
 	bool dropsSpecialTreasure = (monster.data().treasure & T_UNIQ) != 0;
 	bool dropBrain = Quests[Q_MUSHROOM]._qactive == QUEST_ACTIVE && Quests[Q_MUSHROOM]._qvar1 == QS_MUSHGIVEN;
@@ -3279,12 +3329,14 @@ void SpawnItem(Monster &monster, Point position, bool sendmsg, bool spawn /*= fa
 	} else if (monster.isUnique() || dropsSpecialTreasure) {
 		// Unqiue monster is killed => use better item base (for example no gold)
 		idx = RndUItem(&monster);
+		uniqueDrop = true;
 	} else if (dropBrain && !gbIsMultiplayer) {
 		// Normal monster is killed => need to drop brain to progress the quest
 		Quests[Q_MUSHROOM]._qvar1 = QS_BRAINSPAWNED;
 		NetSendCmdQuest(true, Quests[Q_MUSHROOM]);
 		// brain replaces normal drop
-		idx = IDI_BRAIN;
+		SpawnMonsterDrop(monster, position, IDI_BRAIN, onlygood, sendmsg, spawn, false);
+		return;
 	} else {
 		if (dropBrain && gbIsMultiplayer && sendmsg) {
 			Quests[Q_MUSHROOM]._qvar1 = QS_BRAINSPAWNED;
@@ -3301,27 +3353,14 @@ void SpawnItem(Monster &monster, Point position, bool sendmsg, bool spawn /*= fa
 		idx = RndItemForMonsterLevel(monster.level(sgGameInitInfo.nDifficulty));
 	}
 
-	if (idx == IDI_NONE)
-		return;
+	SpawnMonsterDrop(monster, position, idx, onlygood, sendmsg, spawn);
 
-	if (ActiveItemCount >= MAXITEMS)
-		return;
-
-	int ii = AllocateItem();
-	auto &item = Items[ii];
-	GetSuperItemSpace(position, ii);
-	int uper = monster.isUnique() ? 15 : 1;
-
-	int8_t mLevel = monster.data().level;
-	if (!gbIsHellfire && monster.type().type == MT_DIABLO)
-		mLevel -= 15;
-
-	SetupAllItems(*MyPlayer, item, idx, AdvanceRndSeed(), mLevel, uper, onlygood, false, false);
-
-	if (sendmsg)
-		NetSendCmdPItem(false, CMD_DROPITEM, item.position, item);
-	if (spawn)
-		NetSendCmdPItem(false, CMD_SPAWNITEM, item.position, item);
+	// Xeated Edition drop rate cheat: extra item rolls (always 1 roll outside of the cheat)
+	const int dropCount = xeated::RollMonsterDropCount();
+	for (int i = 1; i < dropCount; i++) {
+		idx = uniqueDrop ? RndUItem(&monster) : RndItemForMonsterLevel(monster.level(sgGameInitInfo.nDifficulty));
+		SpawnMonsterDrop(monster, position, idx, onlygood, sendmsg, spawn);
+	}
 }
 
 void CreateRndItem(Point position, bool onlygood, bool sendmsg, bool delta)

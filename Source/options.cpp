@@ -1141,6 +1141,50 @@ std::vector<OptionEntryBase *> GameplayOptions::GetEntries()
 	};
 }
 
+XeatedOptions::XeatedOptions()
+    : OptionCategoryBase("Xeated", N_("Xeated Edition"), N_("Walk Speed and Cheat Settings (single player only)"))
+    , walkSpeed("Walk Speed", OptionEntryFlags::CantChangeInMultiPlayer, N_("Walk Speed"), N_("How fast the hero walks. Only applies to single player games."), WalkSpeed::Normal,
+          {
+              { WalkSpeed::Normal, N_("Normal") },
+              { WalkSpeed::Fast, N_("Fast (1.3x)") },
+              { WalkSpeed::Run, N_("Run (2x)") },
+              { WalkSpeed::Faster, N_("Faster (2.7x)") },
+              { WalkSpeed::Turbo, N_("Turbo (4x)") },
+          })
+    , alwaysRun("Always Run", OptionEntryFlags::CantChangeInMultiPlayer, N_("Always Run"), N_("Run everywhere, in town and in the dungeon, even when monsters are nearby. Only applies to single player games."), false)
+    , invincible("Invincible", OptionEntryFlags::CantChangeInMultiPlayer, N_("Invincible"), N_("Cheat: the hero doesn't take damage."), false)
+    , infiniteMana("Infinite Mana", OptionEntryFlags::CantChangeInMultiPlayer, N_("Infinite Mana"), N_("Cheat: spells don't consume mana."), false)
+    , oneHitKill("One Hit Kill", OptionEntryFlags::CantChangeInMultiPlayer, N_("One Hit Kill"), N_("Cheat: every attack of the hero hits and kills the monster."), false)
+    , noDurabilityLoss("No Durability Loss", OptionEntryFlags::CantChangeInMultiPlayer, N_("No Durability Loss"), N_("Cheat: weapons and armor never lose durability."), false)
+    , experienceRate("Experience Rate", OptionEntryFlags::CantChangeInMultiPlayer, N_("Experience Gain %"), N_("Cheat: percentage of experience gained from monsters."), 100, { 100, 150, 200, 300, 500, 1000, 2000 })
+    , goldRate("Gold Rate", OptionEntryFlags::CantChangeInMultiPlayer, N_("Gold Drop %"), N_("Cheat: percentage of gold in each gold pile (a pile holds at most 5000)."), 100, { 100, 200, 300, 500, 1000 })
+    , dropRate("Drop Rate", OptionEntryFlags::CantChangeInMultiPlayer, N_("Drop Chance %"), N_("Cheat: percentage of the chance of monsters dropping items. Values above 100% can drop several items."), 100, { 100, 150, 200, 300, 500, 1000 })
+    , dropQuality("Drop Quality", OptionEntryFlags::CantChangeInMultiPlayer, N_("Drop Quality"), N_("Cheat: rarity of the equipment dropped by monsters."), DropQuality::Normal,
+          {
+              { DropQuality::Normal, N_("Normal") },
+              { DropQuality::Magic, N_("Magic or better") },
+              { DropQuality::Unique, N_("Frequent uniques") },
+          })
+    , itemLevelBonus("Item Level Bonus", OptionEntryFlags::CantChangeInMultiPlayer, N_("Item Level Bonus"), N_("Cheat: added to the level of items dropped by monsters, giving better affixes."), 0, { 0, 5, 10, 15, 20, 30 })
+{
+}
+std::vector<OptionEntryBase *> XeatedOptions::GetEntries()
+{
+	return {
+		&walkSpeed,
+		&alwaysRun,
+		&invincible,
+		&infiniteMana,
+		&oneHitKill,
+		&noDurabilityLoss,
+		&experienceRate,
+		&goldRate,
+		&dropRate,
+		&dropQuality,
+		&itemLevelBonus,
+	};
+}
+
 ControllerOptions::ControllerOptions()
     : OptionCategoryBase("Controller", N_("Controller"), N_("Controller Settings"))
 {
