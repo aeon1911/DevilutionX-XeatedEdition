@@ -61,9 +61,19 @@ jobs:
           name: devilutionx-xeated.nro
           path: package
 
+      - name: Zip Package
+        if: ${{ startsWith(github.ref, 'refs/tags/xe-') }}
+        run: |
+          apt-get install -y --no-install-recommends --no-install-suggests zip
+          cd package && zip -r ../DevilutionX-XeatedEdition-switch.zip switch
+
       - name: Create Release
         if: ${{ startsWith(github.ref, 'refs/tags/xe-') && !env.ACT }}
         uses: softprops/action-gh-release@v2
         with:
-          files: build/devilutionx.nro
+          name: DevilutionX Xeated Edition ${{ github.ref_name }}
+          body_path: docs/xeated/RELEASE_NOTES.md
+          files: |
+            DevilutionX-XeatedEdition-switch.zip
+            build/devilutionx.nro
 ...

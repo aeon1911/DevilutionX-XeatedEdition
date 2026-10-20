@@ -81,8 +81,10 @@ esquerda/direita muda o valor, **A** confirma ou executa a ação, **B** volta.
 
 ## Compilando
 
-O `.nro` é gerado pelo workflow `Xeated Switch` do GitHub Actions (artefato `devilutionx-xeated.nro`; nas
-tags `xe-*` ele também é anexado à release). Para compilar localmente com Docker:
+O `.nro` pronto fica nas [releases](https://github.com/aeon1911/DevilutionX-XeatedEdition/releases). Ele é
+gerado pelo workflow `Xeated Switch` do GitHub Actions (artefato `devilutionx-xeated.nro`; nas tags `xe-*` o
+zip para o SD e o `.nro` são anexados à release). Este fork só mantém o build do Switch; o código das outras
+plataformas continua no repositório porque o build de Linux é usado nos testes. Para compilar localmente com Docker:
 
 ```sh
 docker run --rm -v "$PWD":/src -w /src devkitpro/devkita64:latest bash -c '
@@ -103,7 +105,7 @@ Os testes da edição ficam em `test/xeated_test.cpp`.
   matar com um golpe, XP 500%, drops mágicos, identificar e reparar, revelar mapa, viagem para o nível,
   mana infinita lançando magia mais cara que a mana máxima, salvar e carregar com os itens gerados, idioma
   pt-BR automático e menus a ~60 fps.
-- Ainda não foi testado num Switch de verdade nem com o `DIABDAT.MPQ` completo ou o Hellfire.
+- Testado num Switch físico com o jogo original (`DIABDAT.MPQ`). O Hellfire ainda não foi testado no console.
 
 ![Configurações](docs/xeated/configuracoes.jpg)
 
