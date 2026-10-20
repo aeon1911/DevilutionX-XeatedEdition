@@ -82,7 +82,7 @@ esquerda/direita muda o valor, **A** confirma ou executa a ação, **B** volta.
 ## Compilando
 
 O `.nro` pronto fica nas [releases](https://github.com/aeon1911/DevilutionX-XeatedEdition/releases). Ele é
-gerado pelo workflow `Xeated Switch` do GitHub Actions (artefato `devilutionx-xeated.nro`; nas tags `xe-*` o
+gerado pelo workflow `Xeated Switch` do GitHub Actions (artefato `devilutionx-xeated.nro`; ao rodar o workflow manualmente com `release_tag`, ou numa tag `xe-*`, o
 zip para o SD e o `.nro` são anexados à release). Este fork só mantém o build do Switch; o código das outras
 plataformas continua no repositório porque o build de Linux é usado nos testes. Para compilar localmente com Docker:
 
