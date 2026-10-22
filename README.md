@@ -105,7 +105,7 @@ Os testes da edição ficam em `test/xeated_test.cpp`.
   matar com um golpe, XP 500%, drops mágicos, identificar e reparar, revelar mapa, viagem para o nível,
   mana infinita lançando magia mais cara que a mana máxima, salvar e carregar com os itens gerados, idioma
   pt-BR automático e menus a ~60 fps.
-- Testado num Switch físico com o jogo original (`DIABDAT.MPQ`). O Hellfire ainda não foi testado no console.
+- Testado num Switch físico com o jogo original (`DIABDAT.MPQ`) e com o Hellfire.
 
 ![Configurações](docs/xeated/configuracoes.jpg)
 

@@ -16,6 +16,6 @@ Os cheats e a velocidade valem só em partidas de um jogador. No multijogador o 
 
 ## Testes
 - 228 testes automáticos passando (213 do DevilutionX + 15 da edição).
-- Testado no emulador Ryujinx e num Switch físico com o jogo original.
+- Testado no emulador Ryujinx e num Switch físico com o jogo original (Diablo e Hellfire).
 
 Diablo® e Hellfire® são marcas da Blizzard Entertainment. Este projeto não tem ligação com a Blizzard e não distribui dados do jogo.
