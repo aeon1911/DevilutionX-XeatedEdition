@@ -14,8 +14,9 @@ on:
       - 'docs/**'
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  # Only pull request runs are superseded by newer pushes; builds on main and release runs always finish
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event_name }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   formatting-check:
